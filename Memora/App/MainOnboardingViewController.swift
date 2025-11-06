@@ -1,13 +1,13 @@
 //
-//  Screen4ViewController.swift
+//  MainOnboardingViewController.swift
 //  Memora
 //
-//  Created by user@3 on 05/11/25.
+//  Created by user@3 on 06/11/25.
 //
 
 import UIKit
 
-class Screen4ViewController: UIViewController {
+class MainOnboardingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
