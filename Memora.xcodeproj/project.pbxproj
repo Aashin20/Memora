@@ -33,7 +33,7 @@
 		25AF4C8A2EBA115D00B4F8F7 /* Exceptions for "Memora" folder in "Memora" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				App/Info.plist,
+				Info.plist,
 			);
 			target = 25AF4C612EBA115B00B4F8F7 /* Memora */;
 		};
