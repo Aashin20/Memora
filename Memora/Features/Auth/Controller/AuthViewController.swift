@@ -156,6 +156,10 @@ class AuthViewController: UIViewController {
         return emailPredicate.evaluate(with: email)
     }
     
+    @IBAction func signInPressed(_ sender: Any) {
+        let signin = LoginViewController(nibName: "LoginViewController", bundle: nil)
+        navigationController?.pushViewController(signin, animated: true)
+    }
     private func hasUppercase(_ text: String) -> Bool {
         return text.rangeOfCharacter(from: .uppercaseLetters) != nil
     }
