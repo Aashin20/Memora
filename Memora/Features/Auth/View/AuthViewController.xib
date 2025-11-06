@@ -40,7 +40,7 @@
                     <color key="tintColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Create Account">
-                        <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
+                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
                     </buttonConfiguration>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ylg-Ed-MKV">
