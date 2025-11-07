@@ -33,38 +33,33 @@
                                     <action selector="pageControlTapped:" destination="Zlc-g1-bux" eventType="valueChanged" id="jyp-K5-PdW"/>
                                 </connections>
                             </pageControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptH-Jz-fsO">
-                                <rect key="frame" x="30" y="734" width="333" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptH-Jz-fsO">
+                                <rect key="frame" x="30" y="728" width="333" height="56"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="VJf-pk-kgH"/>
+                                    <constraint firstAttribute="height" constant="56" id="VJf-pk-kgH"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Continue">
                                     <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="28"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="continueTapped:" destination="Zlc-g1-bux" eventType="touchUpInside" id="CcY-TL-oqN"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vx-JW-nYZ">
-                                <rect key="frame" x="326" y="75" width="57" height="35"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Skip"/>
-                                <connections>
-                                    <action selector="skipTapped:" destination="Zlc-g1-bux" eventType="touchUpInside" id="FMd-Ee-SdH"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="AHJ-7w-0fT"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="2vx-JW-nYZ" firstAttribute="top" secondItem="Hy5-lm-Bkp" secondAttribute="top" constant="75" id="B6d-S9-ayL"/>
                             <constraint firstItem="AWy-tN-537" firstAttribute="leading" secondItem="AHJ-7w-0fT" secondAttribute="leading" constant="30" id="M58-kp-CUa"/>
-                            <constraint firstAttribute="trailing" secondItem="2vx-JW-nYZ" secondAttribute="trailing" constant="10" id="OCk-3V-SAY"/>
                             <constraint firstItem="AHJ-7w-0fT" firstAttribute="bottom" secondItem="ptH-Jz-fsO" secondAttribute="bottom" id="Wo7-jc-kO4"/>
                             <constraint firstItem="m7R-HK-pbJ" firstAttribute="leading" secondItem="AHJ-7w-0fT" secondAttribute="leading" id="YYl-3q-iNq"/>
                             <constraint firstItem="AHJ-7w-0fT" firstAttribute="trailing" secondItem="AWy-tN-537" secondAttribute="trailing" constant="30" id="blP-pQ-xP5"/>
-                            <constraint firstItem="2vx-JW-nYZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hy5-lm-Bkp" secondAttribute="leading" constant="20" symbolic="YES" id="cnx-qU-aSB"/>
                             <constraint firstItem="m7R-HK-pbJ" firstAttribute="top" secondItem="AHJ-7w-0fT" secondAttribute="top" id="did-L3-a2W"/>
                             <constraint firstItem="ptH-Jz-fsO" firstAttribute="leading" secondItem="AHJ-7w-0fT" secondAttribute="leading" constant="30" id="eIc-IO-6rB"/>
                             <constraint firstItem="AHJ-7w-0fT" firstAttribute="trailing" secondItem="ptH-Jz-fsO" secondAttribute="trailing" constant="30" id="eJh-lJ-4li"/>
@@ -72,7 +67,23 @@
                             <constraint firstItem="AWy-tN-537" firstAttribute="top" secondItem="m7R-HK-pbJ" secondAttribute="bottom" constant="15" id="yA9-eO-ums"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="1xo-b9-5YS"/>
+                    <navigationItem key="navigationItem" id="1xo-b9-5YS">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="yjz-qO-KS0">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="2vx-JW-nYZ">
+                                <rect key="frame" x="326" y="75" width="57" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="aKA-yv-N6V"/>
+                                    <constraint firstAttribute="width" constant="57" id="iAX-0g-nBr"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Skip"/>
+                                <connections>
+                                    <action selector="skipTapped:" destination="Zlc-g1-bux" eventType="touchUpInside" id="FMd-Ee-SdH"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="containerView" destination="m7R-HK-pbJ" id="eT4-mN-Wrx"/>
                         <outlet property="continueButton" destination="ptH-Jz-fsO" id="xzO-e5-2tc"/>
@@ -82,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JZe-cj-XQe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="979.38931297709917" y="2703.5211267605637"/>
+            <point key="canvasLocation" x="978" y="2733"/>
         </scene>
         <!--Onboardingv3 Page View Controller-->
         <scene sceneID="pce-kP-Fvr">
