@@ -8,19 +8,18 @@ import UIKit
 
 class MainOnboardingViewController: UIViewController {
 
-    // Connect these to storyboard
-    @IBOutlet weak var containerView: UIView!            // the Container View that holds the page VC (optional to have)
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var continueButton: UIButton!
-    @IBOutlet weak var skipButton: UIButton!             // optional
+    @IBOutlet weak var skipButton: UIButton!
 
-    // Reference to the embedded PageViewController
+    
     weak var pageViewController: Onboardingv3PageViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // If you embedded via storyboard, the child page VC will be available at this point
+     
         for child in children {
             if let pvc = child as? Onboardingv3PageViewController {
                 pageViewController = pvc
@@ -28,13 +27,13 @@ class MainOnboardingViewController: UIViewController {
             }
         }
 
-        // Setup initial UI
+   
         pageControl.numberOfPages = pageViewController?.pages.count ?? 0
         pageControl.currentPage = pageViewController?.currentIndex ?? 0
         updateContinueButtonTitle()
     }
 
-    // Continue tapped in the parent - hooked to the bottom static button
+   
     @IBAction func continueTapped(_ sender: UIButton) {
         guard let pvc = pageViewController else { return }
 
@@ -48,7 +47,7 @@ class MainOnboardingViewController: UIViewController {
                 }
             }
         } else {
-            // Last page -> finish onboarding
+           
             finishedOnboarding()
         }
     }
@@ -79,10 +78,10 @@ class MainOnboardingViewController: UIViewController {
     func finishedOnboarding() {
         let signup = AuthViewController(nibName: "AuthViewController", bundle: nil)
         navigationController?.pushViewController(signup, animated: true)
-        // performSegue(withIdentifier: "goToHome", sender: self)
+       
     }
 
-    // Called when page control changes or swipe completes. The page VC should call this (see below).
+   
     func pageDidChange(to index: Int) {
         pageControl.currentPage = index
         animateContinueTitleChange()
@@ -92,13 +91,21 @@ class MainOnboardingViewController: UIViewController {
             }
     }
 
-    // Helper - sets Continue button title based on index
+    
     func updateContinueButtonTitle() {
         guard let pvc = pageViewController else { return }
+        let boldFont = UIFont.boldSystemFont(ofSize: 18)
+        
         if pvc.currentIndex == (pvc.pages.count - 1) {
-            continueButton.setTitle("Let's Get Started", for: .normal)
+            let boldTitle = NSAttributedString(string: "Let's Get Started", attributes: [
+                .font: boldFont
+            ])
+            continueButton.setAttributedTitle(boldTitle, for: .normal)
         } else {
-            continueButton.setTitle("Continue", for: .normal)
+            let boldTitle = NSAttributedString(string: "Continue", attributes: [
+                .font: boldFont
+            ])
+            continueButton.setAttributedTitle(boldTitle, for: .normal)
         }
     }
 
@@ -107,4 +114,5 @@ class MainOnboardingViewController: UIViewController {
             self.updateContinueButtonTitle()
         }, completion: nil)
     }
+   
 }

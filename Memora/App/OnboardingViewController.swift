@@ -14,10 +14,10 @@ class OnboardingViewController: UIViewController {
     }
     
     @IBAction func continueButtonPressed(_ sender: UIButton) {
-                let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
                 // No need for if-let since it returns non-optional
-                let featureListVC = storyboard.instantiateViewController(withIdentifier: "FeatureListViewController")
+                let featureListVC = storyboard.instantiateViewController(withIdentifier: "Navigation1")
 
                 featureListVC.modalTransitionStyle = .crossDissolve
                 featureListVC.modalPresentationStyle = .fullScreen

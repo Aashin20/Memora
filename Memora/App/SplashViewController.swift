@@ -47,7 +47,7 @@ class SplashViewController: UIViewController {
         }
 
     private func goToOnboarding() {
-            let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
             // No need for if-let since it returns non-optional
             let onboardingVC = storyboard.instantiateViewController(withIdentifier: "OnboardingViewController")

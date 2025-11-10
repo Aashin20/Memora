@@ -8,7 +8,7 @@ import UIKit
 
 class Onboardingv3PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
-    // keep these identifiers in storyboard for each child VC
+   
     lazy var pages: [UIViewController] = {
         return [
             storyboard!.instantiateViewController(withIdentifier: "Screen1v3ViewController"),
@@ -20,15 +20,13 @@ class Onboardingv3PageViewController: UIPageViewController, UIPageViewController
 
     var currentIndex = 0 {
         didSet {
-            // inform parent (if it exists) that page changed
             if let parent = parent as? MainOnboardingViewController {
                 parent.pageDidChange(to: currentIndex)
             }
         }
     }
 
-    let customPageControl = UIPageControl() // we won't show this if parent uses its own, but you can remove it
-
+    let customPageControl = UIPageControl()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,7 +39,6 @@ class Onboardingv3PageViewController: UIPageViewController, UIPageViewController
         }
     }
 
-    // Public method parent can call to jump to next (optional)
     func goToNextPage() {
         if currentIndex < pages.count - 1 {
             let nextIndex = currentIndex + 1
@@ -51,7 +48,7 @@ class Onboardingv3PageViewController: UIPageViewController, UIPageViewController
                 }
             }
         } else {
-            // done
+          
         }
     }
 
