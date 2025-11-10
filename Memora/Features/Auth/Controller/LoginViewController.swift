@@ -13,7 +13,7 @@ class LoginViewController: UIViewController {
         
         setupUI()
         
-        // Dismiss keyboard when tapping anywhere outside
+  
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
@@ -26,20 +26,20 @@ class LoginViewController: UIViewController {
     
     // MARK: - Setup UI (matches AuthViewController styling)
     private func setupUI() {
-        // Rounded white container
+        
         textFieldView.layer.cornerRadius = 20
         textFieldView.clipsToBounds = true
 
 
         textFieldView.backgroundColor = .white
         
-        // Remove all arranged subviews before rebuilding
+      
         infoStackView.arrangedSubviews.forEach { view in
             infoStackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
         
-        // Configure both fields
+  
         let fields = [emailTextFiled, passwordTextField]
         fields.forEach { tf in
             guard let tf = tf else { return }
@@ -49,11 +49,11 @@ class LoginViewController: UIViewController {
             tf.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         }
         
-        // Add email + separator, then password (no separator below)
+       
         addFieldWithSeparator(emailTextFiled)
         infoStackView.addArrangedSubview(passwordTextField)
         
-        // Style Sign In button
+   
         signInButton.layer.cornerRadius = 28
         signInButton.clipsToBounds = true
         signInButton.backgroundColor = .black
@@ -80,6 +80,11 @@ class LoginViewController: UIViewController {
         navigationController?.pushViewController(signup, animated: true)
     }
     
+    @IBAction func forgotPasswordClicked(_ sender: Any) {
+        let forgotPassword = ForgotPasswordViewController(nibName: "ForgotPasswordViewController", bundle: nil)
+        navigationController?.pushViewController(forgotPassword, animated: true)
+        print("Forgot password clicked")
+    }
     // MARK: - Button Action
     @objc private func signInButtonPressed() {
         dismissKeyboard()
@@ -111,7 +116,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        // ✅ All inputs valid
+      
         proceedToHomeScreen()
     }
     

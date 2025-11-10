@@ -26,7 +26,7 @@ class OnboardingPageViewController: UIPageViewController, UIPageViewControllerDa
         self.dataSource = self
         self.delegate = self
 
-        // Set first page
+    
         setViewControllers([pages[0]], direction: .forward, animated: true, completion: nil)
 
         setupPageControl()
