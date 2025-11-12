@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  Memora
 //
-//  Created by user@33 on 04/11/25.
+//  Created by user@3 on 04/11/25.
 //
 
 import UIKit

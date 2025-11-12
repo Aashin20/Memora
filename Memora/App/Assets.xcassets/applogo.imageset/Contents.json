@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "a-minimalist-ios-app-icon-depicting-a-st_bFeBtflBTyaTWOq7dXTGTg_tX8sGVTMT6KhMCaPCSPWrA-removebg-preview.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

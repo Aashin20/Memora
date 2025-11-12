@@ -86,11 +86,13 @@ class LoginViewController: UIViewController {
         print("Forgot password clicked")
     }
     // MARK: - Button Action
-    @objc private func signInButtonPressed() {
+    @IBAction func signInButtonPressed(_ sender: UIButton) {
         dismissKeyboard()
         validateAndLogin()
+        let familyJoin = JoinFamilyViewController(nibName: "JoinFamilyViewController", bundle: nil)
+        navigationController?.pushViewController(familyJoin, animated: true)
     }
-    
+
     
     // MARK: - Validation
     private func validateAndLogin() {
@@ -117,7 +119,7 @@ class LoginViewController: UIViewController {
         }
         
       
-        proceedToHomeScreen()
+        //proceedToHomeScreen()
     }
     
     
@@ -152,8 +154,9 @@ extension LoginViewController: UITextFieldDelegate {
             passwordTextField.becomeFirstResponder()
         } else if textField == passwordTextField {
             textField.resignFirstResponder()
-            signInButtonPressed()
+            signInButtonPressed(signInButton)
         }
         return true
     }
+
 }

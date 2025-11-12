@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g2r-zT-zgZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="g2r-zT-zgZ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7R-HK-pbJ">
-                                <rect key="frame" x="0.0" y="162" width="393" height="538"/>
+                                <rect key="frame" x="0.0" y="172" width="393" height="538"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="538" id="7W0-86-87d"/>
                                 </constraints>
@@ -26,7 +26,7 @@
                                 </connections>
                             </containerView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="AWy-tN-537">
-                                <rect key="frame" x="30" y="715" width="333" height="25.666666666666629"/>
+                                <rect key="frame" x="30" y="725" width="333" height="25.666666666666629"/>
                                 <color key="pageIndicatorTintColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
@@ -70,8 +70,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="1xo-b9-5YS">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="yjz-qO-KS0">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="2vx-JW-nYZ">
-                                <rect key="frame" x="320" y="5" width="57" height="34.333333333333336"/>
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="2vx-JW-nYZ">
+                                <rect key="frame" x="316" y="4.6666666666666687" width="57" height="34.666666666666664"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="aKA-yv-N6V"/>
@@ -370,7 +370,7 @@
                 <navigationController storyboardIdentifier="Navigation1" automaticallyAdjustsScrollViewInsets="NO" id="A23-1W-Svo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hVn-tf-6f1">
-                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -390,8 +390,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="xh3-BV-lPe">
-                                <rect key="frame" x="0.0" y="-12" width="393" height="926"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="applogo" translatesAutoresizingMaskIntoConstraints="NO" id="xh3-BV-lPe">
+                                <rect key="frame" x="0.0" y="201" width="393" height="500"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memora" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNU-i2-en8">
                                 <rect key="frame" x="16" y="487" width="361" height="44"/>
@@ -514,11 +514,10 @@ Memora</string>
     <resources>
         <image name="Family" width="290" height="245"/>
         <image name="Guided" width="290" height="245"/>
-        <image name="Image" width="930" height="926"/>
         <image name="Logo" width="500" height="500"/>
         <image name="Multimedia" width="290" height="245"/>
         <image name="Scheduling" width="290" height="245"/>
-        <image name="applogo" width="536" height="530"/>
+        <image name="applogo" width="500" height="500"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
