@@ -71,6 +71,7 @@
             <connections>
                 <outlet property="authorLabel" destination="1lQ-3c-50y" id="10i-0i-ucq"/>
                 <outlet property="cardImageView" destination="6cK-Cc-6NB" id="l5D-JX-Xh2"/>
+                <outlet property="cardView" destination="ncn-ja-KPE" id="67D-ez-ULB"/>
                 <outlet property="promptLabel" destination="Khg-Vb-IK5" id="mHd-82-FnY"/>
             </connections>
             <point key="canvasLocation" x="115.26717557251908" y="178.87323943661974"/>

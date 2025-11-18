@@ -1,10 +1,3 @@
-//
-//  FamilyMemoriesCollectionViewCell.swift
-//  Memora
-//
-//  Created by user@3 on 10/11/25.
-//
-
 import UIKit
 
 class FamilyMemoriesCollectionViewCell: UICollectionViewCell {
@@ -12,49 +5,48 @@ class FamilyMemoriesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cardImageView: UIImageView!
     @IBOutlet weak var promptLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var cardView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupAppearance()
+        setupCard()
     }
 
-    private func setupAppearance() {
+    private func setupCard() {
+        backgroundColor = .clear
 
-        // --- Rounded Image ---
-        cardImageView.clipsToBounds = true
-        cardImageView.contentMode = .scaleAspectFill
-        cardImageView.layer.cornerRadius = 0
-
-        // --- Styling for card container ---
-        contentView.layer.cornerRadius = 50
-        contentView.layer.masksToBounds = true
-
-        // --- Shadow on cell (NOT contentView) ---
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.08).cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 3)
-        layer.shadowRadius = 6
-        layer.shadowOpacity = 1
+        // Main card container
+        cardView.layer.cornerRadius = 22
+        cardView.backgroundColor = .systemBackground
+        cardView.layer.masksToBounds = false
+        
+        // shadow
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.08
+        layer.shadowRadius = 16
+        layer.shadowOffset = CGSize(width: 0, height: 6)
         layer.masksToBounds = false
 
-        // Label styling
-        promptLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        promptLabel.textColor = .black
-        promptLabel.numberOfLines = 2
+        // Image styling
+        cardImageView.layer.cornerRadius = 18
+        cardImageView.clipsToBounds = true
+        cardImageView.contentMode = .scaleAspectFill
+        if #available(iOS 11.0, *) {
+            cardImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
 
-        authorLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        authorLabel.textColor = .darkGray
+        // Labels
+        promptLabel.numberOfLines = 2
+        promptLabel.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+
+        authorLabel.font = UIFont.systemFont(ofSize: 14)
+        authorLabel.textColor = .secondaryLabel
     }
 
     func configure(prompt: String, author: String, image: UIImage?) {
         promptLabel.text = prompt
-        authorLabel.text = "by \(author)"
-
-        if let img = image {
-            cardImageView.image = img
-        } else {
-            cardImageView.image = nil
-            cardImageView.backgroundColor = UIColor(white: 0.94, alpha: 1)
-        }
+        authorLabel.text = author
+        cardImageView.image = image ?? UIImage(systemName: "photo")
     }
 
     override func prepareForReuse() {

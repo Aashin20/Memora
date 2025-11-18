@@ -12,9 +12,8 @@ class FamilyMemberViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var membersCollectionView: UICollectionView!
     @IBOutlet weak var postsCollectionView: UICollectionView!
+    @IBOutlet weak var profileButton: UIButton!
 
-    @IBOutlet weak var ProfilePic: UIImageView!
-    
     // MARK: - Dummy Data
     let members: [(name: String, imageName: String)] = [
         ("John", "Window"),
@@ -32,18 +31,11 @@ class FamilyMemberViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Background FIX
+        view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
+
         setupMembersCollection()
         setupPostsCollection()
-        
-        // ✅ Make Profile Pic circular
-        ProfilePic.clipsToBounds = true
-        ProfilePic.contentMode = .scaleAspectFill
-    }
-
-    // ✅ Ensures perfect circular shape after layout
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        ProfilePic.layer.cornerRadius = ProfilePic.frame.height / 2
     }
 
     // MARK: - Members Collection Setup
@@ -54,40 +46,57 @@ class FamilyMemberViewController: UIViewController {
         membersCollectionView.delegate = self
         membersCollectionView.dataSource = self
 
+        membersCollectionView.backgroundColor = .clear  // FIX WHITE BACKGROUND
+
         if let layout = membersCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
             layout.minimumLineSpacing = 12
             layout.itemSize = CGSize(width: 140, height: 190)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         }
     }
 
-    // MARK: - Posts Collection Setup
+    // MARK: - Posts Collection Setup (Home-style Explore More)
     private func setupPostsCollection() {
         let nib = UINib(nibName: "FamilyMemoriesCollectionViewCell", bundle: nil)
         postsCollectionView.register(nib, forCellWithReuseIdentifier: "FamilyMemoriesCell")
 
         postsCollectionView.delegate = self
         postsCollectionView.dataSource = self
+        postsCollectionView.backgroundColor = .clear  // FIX WHITE BACKGROUND
+        postsCollectionView.showsVerticalScrollIndicator = false
 
         if let layout = postsCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 15
-            layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 220)
+            layout.minimumLineSpacing = 35
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
+            layout.itemSize = CGSize(
+                width: view.bounds.width - 32,
+                height: 394
+            )
         }
     }
-    
+
+    // MARK: - Navigation actions
     @IBAction func FamilyMemberPressed(_ sender: UIButton) {
         let FamilyList = FamilyMemberListViewController(nibName: "FamilyMemberListViewController", bundle: nil)
         navigationController?.pushViewController(FamilyList, animated: true)
     }
+
+    @IBAction func profileButtonPressed(_ sender: UIButton) {
+        let vc = AccountModalViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .pageSheet
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        present(nav, animated: true, completion: nil)
+    }
 }
 
-// MARK: - CollectionView Delegate & DataSource
 extension FamilyMemberViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int { return 1 }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionView == membersCollectionView ? members.count : posts.count
@@ -97,22 +106,28 @@ extension FamilyMemberViewController: UICollectionViewDataSource, UICollectionVi
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if collectionView == membersCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FamilyMemberCell",
-                                                          for: indexPath) as! FamilyMemberCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "FamilyMemberCell",
+                for: indexPath
+            ) as! FamilyMemberCollectionViewCell
 
             let member = members[indexPath.item]
-            let image = UIImage(named: member.imageName)
-            cell.configure(name: member.name, image: image)
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FamilyMemoriesCell",
-                                                          for: indexPath) as! FamilyMemoriesCollectionViewCell
-
-            let post = posts[indexPath.item]
-            let img = UIImage(named: post.imageName)
-            cell.configure(prompt: post.prompt, author: post.author, image: img)
+            cell.configure(name: member.name, image: UIImage(named: member.imageName))
             return cell
         }
+
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "FamilyMemoriesCell",
+            for: indexPath
+        ) as! FamilyMemoriesCollectionViewCell
+
+        let post = posts[indexPath.item]
+        cell.configure(
+            prompt: post.prompt,
+            author: post.author,
+            image: UIImage(named: post.imageName)
+        )
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

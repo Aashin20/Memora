@@ -18,19 +18,20 @@ class FamilyMemberCollectionViewCell: UICollectionViewCell {
 
     private func setupAppearance() {
 
-        // --- Round Image ---
+        // --- Proper rectangular card with rounded corners ---
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 20    // FIX: was 50 (too large)
+        contentView.layer.masksToBounds = true
+
+        // --- Image rounded slightly, not capsule ---
         MemberImageView.clipsToBounds = true
         MemberImageView.contentMode = .scaleAspectFill
-        MemberImageView.layer.cornerRadius = 20   // smooth rounded image everywhere
+        MemberImageView.layer.cornerRadius = 16
 
-        // --- Card Background ---
-        contentView.layer.cornerRadius = 50       // rounded card edges
-        contentView.layer.masksToBounds = true    // ensures content respects rounded corner
-
-        // Optional subtle shadow
-        layer.shadowColor = UIColor.black.withAlphaComponent(0.08).cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 3)
-        layer.shadowRadius = 6
+        // --- Soft shadow ---
+        layer.shadowColor = UIColor.black.withAlphaComponent(0.10).cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 4)
+        layer.shadowRadius = 10
         layer.shadowOpacity = 1
         layer.masksToBounds = false
     }
