@@ -34,12 +34,18 @@ class FamilyRequestsTableViewCell: UITableViewCell {
         emailLabel.font = .systemFont(ofSize: 14)
         emailLabel.textColor = .gray
         
+        //  APPROVE BUTTON — Black background, white text
         approveButton.setTitle("Approve", for: .normal)
-        approveButton.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.2)
+        approveButton.setTitleColor(.white, for: .normal)
+        approveButton.backgroundColor = .black
         approveButton.layer.cornerRadius = 6
         
+        //  REJECT BUTTON — White background, black border, white text
         rejectButton.setTitle("Reject", for: .normal)
-        rejectButton.backgroundColor = UIColor.systemRed.withAlphaComponent(0.2)
+        rejectButton.setTitleColor(.black, for: .normal)
+        rejectButton.backgroundColor = .white
+        rejectButton.layer.borderColor = UIColor.black.cgColor
+        rejectButton.layer.borderWidth = 1.5
         rejectButton.layer.cornerRadius = 6
         
         approveButton.addTarget(self, action: #selector(handleApprove), for: .touchUpInside)
@@ -51,7 +57,7 @@ class FamilyRequestsTableViewCell: UITableViewCell {
             contentView.addSubview($0)
         }
         
-        // ✅ Updated Constraints — SIDE-BY-SIDE buttons
+        // Constraints
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
