@@ -19,6 +19,7 @@
                 <outlet property="genderTextField" destination="lbE-d4-Svu" id="GVp-jx-fNO"/>
                 <outlet property="lastNameLabel" destination="Vnd-cC-j5y" id="WEa-Bb-hlv"/>
                 <outlet property="lastNameTextField" destination="yhh-yL-e0V" id="5DK-oG-qhj"/>
+                <outlet property="profileImageView" destination="YKe-P8-qLk" id="PWO-K2-fCO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -37,7 +38,7 @@
                             </constraints>
                             <string key="text">This information ensures Memora data are as accurate as possible.
 These details are not shared with Apple.</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.54509803921568623" green="0.54509803921568623" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -49,7 +50,7 @@ These details are not shared with Apple.</string>
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVm-4q-ewE">
-                            <rect key="frame" x="16" y="286" width="361" height="220"/>
+                            <rect key="frame" x="16" y="286" width="361" height="214"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLQ-nY-f4d">
                                     <rect key="frame" x="16" y="16" width="89.333333333333329" height="21"/>
@@ -166,6 +167,7 @@ These details are not shared with Apple.</string>
                                 <constraint firstItem="Vnd-cC-j5y" firstAttribute="leading" secondItem="kVm-4q-ewE" secondAttribute="leading" constant="16" id="haK-es-jJZ"/>
                                 <constraint firstItem="yhh-yL-e0V" firstAttribute="centerY" secondItem="Vnd-cC-j5y" secondAttribute="centerY" id="jPU-5u-unt"/>
                                 <constraint firstItem="lbE-d4-Svu" firstAttribute="top" secondItem="EWK-cJ-SQ8" secondAttribute="bottom" constant="16" id="m90-as-FXU"/>
+                                <constraint firstAttribute="bottom" secondItem="FPu-tR-sMh" secondAttribute="bottom" constant="16" id="qDu-Eb-6hy"/>
                                 <constraint firstItem="nAT-G7-uaf" firstAttribute="leading" secondItem="kVm-4q-ewE" secondAttribute="leading" constant="16" id="qoS-al-HgN"/>
                                 <constraint firstItem="asl-N7-txR" firstAttribute="leading" secondItem="kVm-4q-ewE" secondAttribute="leading" constant="16" id="sQe-S8-8F3"/>
                                 <constraint firstItem="fLQ-nY-f4d" firstAttribute="leading" secondItem="kVm-4q-ewE" secondAttribute="leading" constant="16" id="wvz-RF-Qc4"/>
@@ -180,7 +182,6 @@ These details are not shared with Apple.</string>
                         <constraint firstItem="kVm-4q-ewE" firstAttribute="centerX" secondItem="Hpx-hz-8MD" secondAttribute="centerX" id="26e-4B-12m"/>
                         <constraint firstAttribute="trailing" secondItem="U00-oH-6Iu" secondAttribute="trailing" constant="32" id="27H-KY-84i"/>
                         <constraint firstAttribute="trailing" secondItem="kVm-4q-ewE" secondAttribute="trailing" constant="16" id="5Xn-EZ-cSI"/>
-                        <constraint firstAttribute="bottom" secondItem="kVm-4q-ewE" secondAttribute="bottom" constant="160" id="8kS-94-9dt"/>
                         <constraint firstItem="kVm-4q-ewE" firstAttribute="leading" secondItem="Hpx-hz-8MD" secondAttribute="leading" constant="16" id="JsN-QB-rFd"/>
                         <constraint firstItem="kVm-4q-ewE" firstAttribute="top" secondItem="U00-oH-6Iu" secondAttribute="bottom" constant="20" id="dMd-1A-fIP"/>
                         <constraint firstItem="U00-oH-6Iu" firstAttribute="centerX" secondItem="Hpx-hz-8MD" secondAttribute="centerX" id="p4g-Cw-UVT"/>

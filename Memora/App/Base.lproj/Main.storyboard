@@ -70,7 +70,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="1xo-b9-5YS">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="yjz-qO-KS0">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="2vx-JW-nYZ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="2vx-JW-nYZ">
                                 <rect key="frame" x="316" y="4.6666666666666687" width="57" height="34.666666666666664"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>

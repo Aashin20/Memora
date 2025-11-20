@@ -87,10 +87,17 @@ class FamilyMemberViewController: UIViewController {
         let vc = AccountModalViewController()
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .pageSheet
+        
         if let sheet = nav.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
+            // Only large detent (full height)
+            sheet.detents = [.large()]
+            sheet.selectedDetentIdentifier = .large
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+            sheet.largestUndimmedDetentIdentifier = .large
         }
-        present(nav, animated: true, completion: nil)
+
+        present(nav, animated: true)
+
     }
 }
 

@@ -4,11 +4,11 @@
 //
 //  Created by user@3 on 06/11/25.
 //
+
 import UIKit
 
 class Onboardingv3PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
-   
     lazy var pages: [UIViewController] = {
         return [
             storyboard!.instantiateViewController(withIdentifier: "Screen1v3ViewController"),
@@ -27,6 +27,7 @@ class Onboardingv3PageViewController: UIPageViewController, UIPageViewController
     }
 
     let customPageControl = UIPageControl()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,12 +48,11 @@ class Onboardingv3PageViewController: UIPageViewController, UIPageViewController
                     self.currentIndex = nextIndex
                 }
             }
-        } else {
-          
         }
     }
 
-    // MARK: UIPageViewControllerDataSource
+    // MARK: - Data Source
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let idx = pages.firstIndex(of: viewController), idx > 0 else { return nil }
         return pages[idx - 1]
@@ -63,7 +63,8 @@ class Onboardingv3PageViewController: UIPageViewController, UIPageViewController
         return pages[idx + 1]
     }
 
-    // MARK: UIPageViewControllerDelegate
+    // MARK: - Delegate
+
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let visible = viewControllers?.first, let idx = pages.firstIndex(of: visible) {
             currentIndex = idx

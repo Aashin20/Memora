@@ -4,6 +4,7 @@
 //
 //  Created by user@3 on 06/11/25.
 //
+
 import UIKit
 
 class MainOnboardingViewController: UIViewController {
@@ -12,14 +13,12 @@ class MainOnboardingViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
-
     
     weak var pageViewController: Onboardingv3PageViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-     
         for child in children {
             if let pvc = child as? Onboardingv3PageViewController {
                 pageViewController = pvc
@@ -27,13 +26,11 @@ class MainOnboardingViewController: UIViewController {
             }
         }
 
-   
         pageControl.numberOfPages = pageViewController?.pages.count ?? 0
         pageControl.currentPage = pageViewController?.currentIndex ?? 0
         updateContinueButtonTitle()
     }
 
-   
     @IBAction func continueTapped(_ sender: UIButton) {
         guard let pvc = pageViewController else { return }
 
@@ -47,7 +44,6 @@ class MainOnboardingViewController: UIViewController {
                 }
             }
         } else {
-           
             finishedOnboarding()
         }
     }
@@ -55,6 +51,7 @@ class MainOnboardingViewController: UIViewController {
     @IBAction func skipTapped(_ sender: UIButton) {
         guard let pvc = pageViewController else { return }
         let last = pvc.pages.count - 1
+
         pvc.setViewControllers([pvc.pages[last]], direction: .forward, animated: true) { finished in
             if finished {
                 pvc.currentIndex = last
@@ -68,34 +65,34 @@ class MainOnboardingViewController: UIViewController {
         guard let pvc = pageViewController else { return }
         let target = sender.currentPage
         let direction: UIPageViewController.NavigationDirection = (target > pvc.currentIndex) ? .forward : .reverse
+
         pvc.setViewControllers([pvc.pages[target]], direction: direction, animated: true) { _ in
             pvc.currentIndex = target
             self.animateContinueTitleChange()
         }
     }
 
-    
     func finishedOnboarding() {
         let signup = AuthViewController(nibName: "AuthViewController", bundle: nil)
         navigationController?.pushViewController(signup, animated: true)
-       
     }
 
-   
     func pageDidChange(to index: Int) {
         pageControl.currentPage = index
         animateContinueTitleChange()
-        
+
         if let pvc = pageViewController {
-                skipButton.isHidden = (index == pvc.pages.count - 1)
-            }
+            let isLast = (index == pvc.pages.count - 1)
+
+            // FIX: properly hide & disable button
+            skipButton.isHidden = isLast
+        }
     }
 
-    
     func updateContinueButtonTitle() {
         guard let pvc = pageViewController else { return }
         let boldFont = UIFont.boldSystemFont(ofSize: 18)
-        
+
         if pvc.currentIndex == (pvc.pages.count - 1) {
             let boldTitle = NSAttributedString(string: "Let's Get Started", attributes: [
                 .font: boldFont
@@ -114,5 +111,4 @@ class MainOnboardingViewController: UIViewController {
             self.updateContinueButtonTitle()
         }, completion: nil)
     }
-   
 }

@@ -51,26 +51,44 @@ class PrivacyandSecurityViewController: UIViewController {
 
     @IBAction func phoneButtonTapped(_ sender: UIButton) {
         print("Phone section tapped")
+        
+        let vc = ChangePhoneViewController()
+        navigationController?.pushViewController(vc, animated: true)
         // Navigate or perform action here
     }
 
     @IBAction func phoneChevronTapped(_ sender: UIButton) {
         print("Chevron (Phone) tapped")
+        
+        let vc = ChangePhoneViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     @IBAction func emailButtonTapped(_ sender: UIButton) {
         print("Email section tapped")
+        
+        let vc = ChangeEmailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     @IBAction func emailChevronTapped(_ sender: UIButton) {
         print("Chevron (Email) tapped")
+        
+        let vc = ChangeEmailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     @IBAction func changePasswordButtonTapped(_ sender: UIButton) {
         print("Change Password section tapped")
+        
+        let vc = ChangePasswordViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     @IBAction func changePasswordChevronTapped(_ sender: UIButton) {
         print("Chevron (Change Password) tapped")
+        
+        let vc = ChangePasswordViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
