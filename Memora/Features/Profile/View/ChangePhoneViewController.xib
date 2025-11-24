@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChangePhoneViewController" customModule="Memora" customModuleProvider="target">
+            <connections>
+                <outlet property="phoneLabel" destination="vPw-19-Y8T" id="szr-iR-1j3"/>
+                <outlet property="phoneView" destination="O53-tb-uwV" id="vGS-np-8NL"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kK2-Az-K84">
+                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gdh-Vc-CCC">
+                            <rect key="frame" x="20" y="10" width="116" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O53-tb-uwV">
+                            <rect key="frame" x="20" y="46" width="353" height="60"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBw-hs-hN5">
+                                    <rect key="frame" x="10" y="19.666666666666657" width="49" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="8940130927" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vPw-19-Y8T">
+                                    <rect key="frame" x="259.33333333333331" y="19" width="83.666666666666686" height="22"/>
+                                    <color key="textColor" name="AccentColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="vPw-19-Y8T" secondAttribute="trailing" constant="10" id="Dvb-oS-bEj"/>
+                                <constraint firstItem="NBw-hs-hN5" firstAttribute="centerY" secondItem="O53-tb-uwV" secondAttribute="centerY" id="EYA-gK-TmM"/>
+                                <constraint firstItem="NBw-hs-hN5" firstAttribute="leading" secondItem="O53-tb-uwV" secondAttribute="leading" constant="10" id="MEv-Vy-SKQ"/>
+                                <constraint firstItem="vPw-19-Y8T" firstAttribute="centerY" secondItem="O53-tb-uwV" secondAttribute="centerY" id="OYw-Jr-VE8"/>
+                                <constraint firstAttribute="height" constant="60" id="dGw-2s-Pdn"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="O53-tb-uwV" secondAttribute="trailing" constant="20" id="I63-1E-YUM"/>
+                        <constraint firstItem="gdh-Vc-CCC" firstAttribute="leading" secondItem="kK2-Az-K84" secondAttribute="leading" constant="20" id="hez-uK-jKt"/>
+                        <constraint firstItem="O53-tb-uwV" firstAttribute="top" secondItem="gdh-Vc-CCC" secondAttribute="bottom" constant="15" id="jvz-ry-r6T"/>
+                        <constraint firstItem="gdh-Vc-CCC" firstAttribute="top" secondItem="kK2-Az-K84" secondAttribute="top" constant="10" id="qUX-mb-FnU"/>
+                        <constraint firstItem="O53-tb-uwV" firstAttribute="leading" secondItem="kK2-Az-K84" secondAttribute="leading" constant="20" id="tcl-S8-jW8"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kK2-Az-K84" secondAttribute="trailing" id="0Xx-CI-EjI"/>
+                <constraint firstItem="kK2-Az-K84" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="6lc-PM-cLh"/>
+                <constraint firstItem="kK2-Az-K84" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TIs-LY-89E"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="kK2-Az-K84" secondAttribute="bottom" id="lSX-2V-3mu"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
