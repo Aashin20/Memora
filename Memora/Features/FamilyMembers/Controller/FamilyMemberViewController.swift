@@ -26,18 +26,47 @@ class FamilyMemberViewController: UIViewController {
         ("Trip to Goa", "Dad", "Window-2"),
         ("Graduation Day", "Peter", "Window")
     ]
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        // Ensure autolayout has laid out subviews
+        view.layoutIfNeeded()
+
+        // Defensive: make sure outlet exists
+        guard profileButton.bounds.width > 0 && profileButton.bounds.height > 0 else {
+            return
+        }
+
+        // Make it perfectly circular (handles non-square buttons too)
+        let radius = min(profileButton.bounds.width, profileButton.bounds.height) / 2
+        profileButton.layer.cornerRadius = radius
+        profileButton.layer.masksToBounds = true            // clip subviews (image) to rounded shape
+        profileButton.clipsToBounds = true                  // same as above for UIKit
+
+        // Optional: make image fill the circle nicely
+        profileButton.imageView?.contentMode = .scaleAspectFill
+        profileButton.contentHorizontalAlignment = .fill
+        profileButton.contentVerticalAlignment = .fill
+
+        // Optional: visual tweaks
+        profileButton.layer.borderWidth = 1
+        profileButton.layer.borderColor = UIColor.black.withAlphaComponent(0.12).cgColor
+    }
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Background FIX
+     
         view.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 247/255, alpha: 1)
 
         setupMembersCollection()
         setupPostsCollection()
     }
-
+  
+   
     // MARK: - Members Collection Setup
     private func setupMembersCollection() {
         let nib = UINib(nibName: "FamilyMemberCollectionViewCell", bundle: nil)
