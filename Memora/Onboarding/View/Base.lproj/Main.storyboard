@@ -145,7 +145,7 @@
                                     <constraint firstAttribute="height" constant="56" id="MV8-hJ-XBd"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Continue">
+                                <buttonConfiguration key="configuration" style="filled" title="Continue" cornerStyle="capsule">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
                                     <color key="baseBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>

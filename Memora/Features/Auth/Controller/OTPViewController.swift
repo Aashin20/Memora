@@ -113,6 +113,7 @@ class OTPViewController: UIViewController {
         
         let otp = getOTP()
         print("Verifying OTP: \(otp)")
+        
     }
     
     @objc private func resendOTPTapped(_ sender: UIButton) {

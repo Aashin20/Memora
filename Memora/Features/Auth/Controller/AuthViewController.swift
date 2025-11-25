@@ -19,6 +19,8 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var textFieldContainerView: UIView!
     
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
