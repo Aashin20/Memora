@@ -1,3 +1,11 @@
+//
+//  GroupDetailViewController.swift
+//  Memora
+//
+//  Created by user@3 on 10/01/26.
+//
+
+
 import UIKit
 
 class GroupDetailViewController: UIViewController {

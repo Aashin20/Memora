@@ -8,12 +8,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var infoStackView: UIStackView!
     
+    // Add this for the password toggle button
+    private let passwordToggleButton = UIButton(type: .custom)
+    
+    private let authState = AuthState.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
+        setupPasswordToggleButton() // Add this line
         
-  
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
@@ -29,17 +34,13 @@ class LoginViewController: UIViewController {
         
         textFieldView.layer.cornerRadius = 20
         textFieldView.clipsToBounds = true
-
-
         textFieldView.backgroundColor = .white
         
-      
         infoStackView.arrangedSubviews.forEach { view in
             infoStackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
         
-  
         let fields = [emailTextFiled, passwordTextField]
         fields.forEach { tf in
             guard let tf = tf else { return }
@@ -49,11 +50,12 @@ class LoginViewController: UIViewController {
             tf.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
         }
         
-       
+        // Make sure password text field is secure by default
+        passwordTextField.isSecureTextEntry = true
+        
         addFieldWithSeparator(emailTextFiled)
         infoStackView.addArrangedSubview(passwordTextField)
         
-   
         signInButton.layer.cornerRadius = 28
         signInButton.clipsToBounds = true
         signInButton.backgroundColor = .black
@@ -61,6 +63,42 @@ class LoginViewController: UIViewController {
         signInButton.addTarget(self, action: #selector(signInButtonPressed), for: .touchUpInside)
     }
     
+    // MARK: - Password Toggle Button Setup
+    private func setupPasswordToggleButton() {
+        // Configure the eye button
+        passwordToggleButton.tintColor = .lightGray
+        passwordToggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        passwordToggleButton.setImage(UIImage(systemName: "eye"), for: .selected)
+        passwordToggleButton.addTarget(self, action: #selector(togglePasswordVisibility), for: .touchUpInside)
+        
+        // Create a container view for the button with proper padding
+        let buttonContainer = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 30))
+        passwordToggleButton.frame = CGRect(x: 0, y: 5, width: 30, height: 20)
+        buttonContainer.addSubview(passwordToggleButton)
+        
+        // Set the button as right view of password text field
+        passwordTextField.rightView = buttonContainer
+        passwordTextField.rightViewMode = .always
+        
+        // Adjust text field padding to prevent text from overlapping the button
+        passwordTextField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, -40)
+        
+        // Optional: Add padding on the right side when button is present
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: passwordTextField.frame.height))
+        passwordTextField.leftView = paddingView
+        passwordTextField.leftViewMode = .always
+    }
+    
+    @objc private func togglePasswordVisibility() {
+        passwordTextField.isSecureTextEntry.toggle()
+        passwordToggleButton.isSelected = !passwordTextField.isSecureTextEntry
+        
+        // This line is important to maintain cursor position
+        if let existingText = passwordTextField.text, passwordTextField.isSecureTextEntry {
+            passwordTextField.deleteBackward()
+            passwordTextField.insertText(existingText)
+        }
+    }
     
     private func addFieldWithSeparator(_ field: UITextField) {
         infoStackView.addArrangedSubview(field)
@@ -85,18 +123,14 @@ class LoginViewController: UIViewController {
         navigationController?.pushViewController(forgotPassword, animated: true)
         print("Forgot password clicked")
     }
+    
     // MARK: - Button Action
-    @IBAction func signInButtonPressed(_ sender: UIButton){ // 👉 Save login state
-        UserDefaults.standard.set(true, forKey: "isLoggedIn")
-
-        // 👉 Open TabScreens
-        let storyboard = UIStoryboard(name: "TabScreens", bundle: nil)
-        let tabBar = storyboard.instantiateInitialViewController()!
-        tabBar.modalPresentationStyle = .fullScreen
-        present(tabBar, animated: true)
+    @IBAction func signInButtonPressed(_ sender: UIButton) {
+        validateAndLogin()
     }
     
     // MARK: - Validation
+    
     private func validateAndLogin() {
         guard let email = emailTextFiled.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !email.isEmpty else {
@@ -120,8 +154,45 @@ class LoginViewController: UIViewController {
             return
         }
         
-      
-        //proceedToHomeScreen()
+        // Show loading indicator
+        let loadingAlert = UIAlertController(title: nil, message: "Signing in...", preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = .medium
+        loadingIndicator.startAnimating()
+        loadingAlert.view.addSubview(loadingIndicator)
+        present(loadingAlert, animated: true, completion: nil)
+        
+        Task {
+            let success = await authState.signIn(email: email, password: password)
+            
+            DispatchQueue.main.async {
+                loadingAlert.dismiss(animated: true) {
+                    if success {
+                        // Save login state
+                        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                        self.proceedToHomeScreen()
+                    } else {
+                        self.showAlert("Login failed. Please check your credentials.")
+                    }
+                }
+            }
+        }
+    }
+
+    private func proceedToHomeScreen() {
+        let storyboard = UIStoryboard(name: "TabScreens", bundle: nil)
+        if let tabBar = storyboard.instantiateInitialViewController() {
+            tabBar.modalPresentationStyle = .fullScreen
+            
+            // Smooth transition to home
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    window.rootViewController = tabBar
+                }, completion: nil)
+            }
+        }
     }
     
     
@@ -137,17 +208,6 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-    
-    
-    // MARK: - Navigation
-    private func proceedToHomeScreen() {
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        if let navVC = storyboard.instantiateInitialViewController() {
-            navVC.modalPresentationStyle = .fullScreen
-            navVC.modalTransitionStyle = .crossDissolve
-            present(navVC, animated: true)
-        }
-    }
 }
 
 extension LoginViewController: UITextFieldDelegate {
@@ -160,5 +220,4 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return true
     }
-
 }

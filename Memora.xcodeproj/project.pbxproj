@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		1FA106F72ED0CDF900C1F6AD /* DSWaveformImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1FA106F62ED0CDF900C1F6AD /* DSWaveformImage */; };
 		1FA106F92ED0CDF900C1F6AD /* DSWaveformImageViews in Frameworks */ = {isa = PBXBuildFile; productRef = 1FA106F82ED0CDF900C1F6AD /* DSWaveformImageViews */; };
+		1FA3C1102F0AA17C007C195B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1FA3C10F2F0AA17C007C195B /* FirebaseAuth */; };
+		1FA3C1122F0AA17C007C195B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1FA3C1112F0AA17C007C195B /* FirebaseFirestore */; };
+		1FAD8D7C2F0F8B540001FB61 /* Functions in Frameworks */ = {isa = PBXBuildFile; productRef = 1FAD8D7B2F0F8B540001FB61 /* Functions */; };
+		1FAD8D7E2F0F8B540001FB61 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 1FAD8D7D2F0F8B540001FB61 /* PostgREST */; };
+		1FAD8D802F0F8B540001FB61 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 1FAD8D7F2F0F8B540001FB61 /* Realtime */; };
+		1FAD8D822F0F8B540001FB61 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1FAD8D812F0F8B540001FB61 /* Supabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +66,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FAD8D802F0F8B540001FB61 /* Realtime in Frameworks */,
+				1FAD8D7E2F0F8B540001FB61 /* PostgREST in Frameworks */,
+				1FAD8D7C2F0F8B540001FB61 /* Functions in Frameworks */,
 				1FA106F72ED0CDF900C1F6AD /* DSWaveformImage in Frameworks */,
+				1FAD8D822F0F8B540001FB61 /* Supabase in Frameworks */,
+				1FA3C1122F0AA17C007C195B /* FirebaseFirestore in Frameworks */,
+				1FA3C1102F0AA17C007C195B /* FirebaseAuth in Frameworks */,
 				1FA106F92ED0CDF900C1F6AD /* DSWaveformImageViews in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +134,12 @@
 			packageProductDependencies = (
 				1FA106F62ED0CDF900C1F6AD /* DSWaveformImage */,
 				1FA106F82ED0CDF900C1F6AD /* DSWaveformImageViews */,
+				1FA3C10F2F0AA17C007C195B /* FirebaseAuth */,
+				1FA3C1112F0AA17C007C195B /* FirebaseFirestore */,
+				1FAD8D7B2F0F8B540001FB61 /* Functions */,
+				1FAD8D7D2F0F8B540001FB61 /* PostgREST */,
+				1FAD8D7F2F0F8B540001FB61 /* Realtime */,
+				1FAD8D812F0F8B540001FB61 /* Supabase */,
 			);
 			productName = Memora;
 			productReference = 25AF4C622EBA115B00B4F8F7 /* Memora.app */;
@@ -201,6 +219,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1FA106F52ED0CDE300C1F6AD /* XCRemoteSwiftPackageReference "DSWaveformImage" */,
+				1FA3C10E2F0AA17C007C195B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1FAD8D7A2F0F8B540001FB61 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 25AF4C632EBA115B00B4F8F7 /* Products */;
@@ -575,6 +595,22 @@
 				minimumVersion = 14.2.2;
 			};
 		};
+		1FA3C10E2F0AA17C007C195B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.7.0;
+			};
+		};
+		1FAD8D7A2F0F8B540001FB61 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -587,6 +623,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1FA106F52ED0CDE300C1F6AD /* XCRemoteSwiftPackageReference "DSWaveformImage" */;
 			productName = DSWaveformImageViews;
+		};
+		1FA3C10F2F0AA17C007C195B /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FA3C10E2F0AA17C007C195B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		1FA3C1112F0AA17C007C195B /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FA3C10E2F0AA17C007C195B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		1FAD8D7B2F0F8B540001FB61 /* Functions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FAD8D7A2F0F8B540001FB61 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Functions;
+		};
+		1FAD8D7D2F0F8B540001FB61 /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FAD8D7A2F0F8B540001FB61 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		1FAD8D7F2F0F8B540001FB61 /* Realtime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FAD8D7A2F0F8B540001FB61 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
+		};
+		1FAD8D812F0F8B540001FB61 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1FAD8D7A2F0F8B540001FB61 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

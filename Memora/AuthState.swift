@@ -1,53 +1,79 @@
 import Foundation
 import Combine
 
+@MainActor
 class AuthState: ObservableObject {
     @Published var isAuthenticated = false
-    @Published var currentUser: User?
     @Published var isLoading = false
+    @Published var errorMessage: String?
+    @Published var userProfile: UserProfile?
     
     static let shared = AuthState()
-    private init() {}
+    
+    private init() {
+        checkAuthStatus()
+    }
     
     func checkAuthStatus() {
-        if let user = SupabaseManager.shared.getCurrentUser() {
-            self.currentUser = user
-            self.isAuthenticated = true
-        } else {
-            self.currentUser = nil
-            self.isAuthenticated = false
+        isAuthenticated = SupabaseManager.shared.isUserLoggedIn()
+        
+        if isAuthenticated {
+            Task {
+                await loadUserProfile()
+            }
         }
     }
     
-    func signIn(email: String, password: String) async -> Bool {
-        isLoading = true
-        defer { isLoading = false }
-        
+    func loadUserProfile() async {
         do {
-            _ = try await SupabaseManager.shared.signIn(email: email, password: password)
-            checkAuthStatus()
-            return true
+            userProfile = try await SupabaseManager.shared.getUserProfile()
         } catch {
-            print("Sign in error: \(error)")
-            return false
+            print("Failed to load user profile: \(error)")
         }
     }
     
     func signUp(name: String, email: String, password: String) async -> Bool {
         isLoading = true
+        errorMessage = nil
+        
         defer { isLoading = false }
         
         do {
-            let user = try await SupabaseManager.shared.signUp(
-                name: name,
-                email: email,
-                password: password
-            )
-            self.currentUser = user
-            self.isAuthenticated = true
+            // 1. Create auth account
+            try await SupabaseManager.shared.signUp(name: name, email: email, password: password)
+            
+            // 2. Sign in to get session
+            try await SupabaseManager.shared.signIn(email: email, password: password)
+            
+            // 3. Create profile
+            try await SupabaseManager.shared.createUserProfile(name: name, email: email)
+            
+            // 4. Update state
+            isAuthenticated = true
+            await loadUserProfile()
+            
             return true
         } catch {
+            errorMessage = error.localizedDescription
             print("Sign up error: \(error)")
+            return false
+        }
+    }
+    
+    func signIn(email: String, password: String) async -> Bool {
+        isLoading = true
+        errorMessage = nil
+        
+        defer { isLoading = false }
+        
+        do {
+            try await SupabaseManager.shared.signIn(email: email, password: password)
+            isAuthenticated = true
+            await loadUserProfile()
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            print("Sign in error: \(error)")
             return false
         }
     }
@@ -55,9 +81,11 @@ class AuthState: ObservableObject {
     func signOut() async {
         do {
             try await SupabaseManager.shared.signOut()
-            self.currentUser = nil
-            self.isAuthenticated = false
+            isAuthenticated = false
+            userProfile = nil
+            errorMessage = nil
         } catch {
+            errorMessage = error.localizedDescription
             print("Sign out error: \(error)")
         }
     }

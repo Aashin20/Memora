@@ -11,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GroupsListViewController" customModule="Memora" customModuleProvider="target">
             <connections>
                 <outlet property="addGroupButton" destination="eRq-Sy-1Vx" id="tOc-mW-yJ5"/>
+                <outlet property="emptyStateImage" destination="emptyStateImage" id="lQl-bl-4q8"/>
+                <outlet property="emptyStateLabel" destination="emptyStateLabel" id="cVs-Dw-RJ2"/>
+                <outlet property="emptyStateView" destination="emptyStateView" id="Cn2-Sg-1Fh"/>
                 <outlet property="tableView" destination="kOi-iD-FCd" id="AdZ-Fo-5sk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -58,22 +61,56 @@
                         <constraint firstItem="Pdt-xM-Zu2" firstAttribute="top" secondItem="gLj-yN-oeG" secondAttribute="top" constant="20" id="rid-d5-D1P"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emptyStateView">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="834"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.3" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="emptyStateImage">
+                            <rect key="frame" x="146.66666666666666" y="318.33333333333331" width="100" height="98.333333333333371"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="k7t-vp-kSE"/>
+                                <constraint firstAttribute="height" constant="100" id="o1t-yV-MqR"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emptyStateLabel">
+                            <rect key="frame" x="40" y="437" width="313" height="38.333333333333314"/>
+                            <string key="text">No groups yet
+Create or join a group to get started</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" systemColor="tertiaryLabelColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="emptyStateImage" firstAttribute="centerX" secondItem="emptyStateView" secondAttribute="centerX" id="7J2-vV-1nY"/>
+                        <constraint firstItem="emptyStateLabel" firstAttribute="centerX" secondItem="emptyStateView" secondAttribute="centerX" id="NHo-Nv-P1O"/>
+                        <constraint firstItem="emptyStateLabel" firstAttribute="top" secondItem="emptyStateImage" secondAttribute="bottom" constant="20" id="Xcw-ZP-hYF"/>
+                        <constraint firstItem="emptyStateImage" firstAttribute="centerY" secondItem="emptyStateView" secondAttribute="centerY" constant="-50" id="YcI-QG-akm"/>
+                        <constraint firstItem="emptyStateLabel" firstAttribute="leading" secondItem="emptyStateView" secondAttribute="leading" constant="40" id="b4o-gv-KWX"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="gLj-yN-oeG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="6NX-AK-kjl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gLj-yN-oeG" secondAttribute="trailing" id="Qkv-Z7-Uq5"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gLj-yN-oeG" secondAttribute="bottom" id="Qv5-qR-Z6c"/>
                 <constraint firstItem="gLj-yN-oeG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="jCw-yE-nSl"/>
+                <constraint firstItem="emptyStateView" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="n4N-Or-fyh"/>
+                <constraint firstItem="emptyStateView" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="pqJ-bq-bYw"/>
+                <constraint firstItem="gLj-yN-oeG" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="rY4-4U-YaO"/>
             </constraints>
             <point key="canvasLocation" x="139" y="154"/>
         </view>
     </objects>
     <resources>
+        <image name="person.3" catalog="system" width="128" height="66"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

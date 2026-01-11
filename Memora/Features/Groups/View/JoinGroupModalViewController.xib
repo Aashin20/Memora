@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JoinGroupModalViewController" customModule="Memora" customModuleProvider="target">
             <connections>
+                <outlet property="cardView" destination="Ji7-ZS-XTe" id="ZpM-QK-Ud8"/>
                 <outlet property="codeTextField" destination="Igd-ph-t1y" id="A3r-gO-ZDv"/>
                 <outlet property="joinButton" destination="wf5-au-fet" id="Hfk-3S-Mux"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

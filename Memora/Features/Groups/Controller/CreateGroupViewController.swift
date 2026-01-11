@@ -1,29 +1,145 @@
-//
-//  CreateGroupViewController.swift
-//  Memora
-//
-//  Created by user@3 on 10/01/26.
-//
-
 import UIKit
 
 class CreateGroupViewController: UIViewController {
-
+    
+    @IBOutlet weak var groupNameTextField: UITextField!
+    @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var cardView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        setupUI()
+        setupNavigationBar()
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        groupNameTextField.becomeFirstResponder()
     }
-    */
-
+    
+    private func setupNavigationBar() {
+        title = "Create Group"
+        
+        // Add close button
+        let closeButton = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(closeTapped)
+        )
+        navigationItem.leftBarButtonItem = closeButton
+    }
+    
+    private func setupUI() {
+        // Card view styling
+        cardView.layer.cornerRadius = 20
+        cardView.layer.shadowColor = UIColor.black.cgColor
+        cardView.layer.shadowOpacity = 0.1
+        cardView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        cardView.layer.shadowRadius = 8
+        
+        // Text field styling
+        groupNameTextField.layer.cornerRadius = 12
+        groupNameTextField.layer.borderWidth = 1
+        groupNameTextField.layer.borderColor = UIColor.systemGray4.cgColor
+        
+        // Add left padding
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: groupNameTextField.frame.height))
+        groupNameTextField.leftView = paddingView
+        groupNameTextField.leftViewMode = .always
+        
+        // Button styling
+        createButton.layer.cornerRadius = 12
+        createButton.layer.masksToBounds = true
+    }
+    
+    @IBAction func createButtonTapped(_ sender: UIButton) {
+        createGroup()
+    }
+    
+    private func createGroup() {
+        guard let groupName = groupNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !groupName.isEmpty else {
+            showAlert(title: "Error", message: "Please enter a group name")
+            return
+        }
+        
+        if groupName.count < 3 {
+            showAlert(title: "Error", message: "Group name must be at least 3 characters")
+            return
+        }
+        
+        // Disable button and show loading
+        createButton.isEnabled = false
+        createButton.setTitle("Creating...", for: .normal)
+        
+        Task {
+            do {
+                let group = try await SupabaseManager.shared.createGroup(name: groupName)
+                
+                DispatchQueue.main.async {
+                    self.createButton.isEnabled = true
+                    self.createButton.setTitle("Create Group", for: .normal)
+                    self.showSuccessAlert(group: group)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.createButton.isEnabled = true
+                    self.createButton.setTitle("Create Group", for: .normal)
+                    self.showAlert(title: "Error", message: error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    private func showSuccessAlert(group: UserGroup) {
+        let alert = UIAlertController(
+            title: "Group Created!",
+            message: "Your group '\(group.name)' has been created.\n\nGroup Code: \(group.code)\n\nShare this code with others to join.",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Copy Code", style: .default) { _ in
+            UIPasteboard.general.string = group.code
+            self.dismissAndRefresh()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Share Code", style: .default) { _ in
+            self.shareGroupCode(code: group.code, groupName: group.name)
+        })
+        
+        alert.addAction(UIAlertAction(title: "Done", style: .cancel) { _ in
+            self.dismissAndRefresh()
+        })
+        
+        present(alert, animated: true)
+    }
+    
+    private func shareGroupCode(code: String, groupName: String) {
+        let text = "Join my group '\(groupName)' on Memora!\n\nUse code: \(code)"
+        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        present(activityVC, animated: true)
+    }
+    
+    private func dismissAndRefresh() {
+        // Notify groups list to refresh
+        NotificationCenter.default.post(name: NSNotification.Name("GroupsListShouldRefresh"), object: nil)
+        
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+        }
+    }
+    
+    @objc private func closeTapped() {
+        dismissAndRefresh()
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
 }
+

@@ -1,10 +1,3 @@
-//
-//  AuthViewController.swift
-//  Memora
-//
-//  Created by user@33 on 04/11/25.
-//
-
 import UIKit
 
 class AuthViewController: UIViewController {
@@ -19,7 +12,7 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var textFieldContainerView: UIView!
     
-    
+    private let authState = AuthState.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +41,6 @@ class AuthViewController: UIViewController {
             textField.borderStyle = .none
             textField.delegate = self
             textField.layer.sublayerTransform = CATransform3DMakeTranslation(10, 0, 0)
-
         }
         
         
@@ -104,7 +96,6 @@ class AuthViewController: UIViewController {
             return
         }
         
-       
         guard let email = emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !email.isEmpty else {
             print("Email validation failed")
@@ -118,7 +109,6 @@ class AuthViewController: UIViewController {
             return
         }
         
-       
         guard let password = passwordTextField.text,
               !password.isEmpty else {
             print("Password validation failed")
@@ -132,7 +122,6 @@ class AuthViewController: UIViewController {
             return
         }
         
-       
         guard let confirmPassword = confirmPassTextField.text,
               !confirmPassword.isEmpty else {
             print("Confirm password validation failed")
@@ -146,9 +135,64 @@ class AuthViewController: UIViewController {
             return
         }
         
+        print("All validations passed - Creating account with Supabase")
+        createAccountWithSupabase(name: name, email: email, password: password)
+    }
 
-        print("All validations passed")
-        showSuccessAlert(name: name, email: email)
+    private func createAccountWithSupabase(name: String, email: String, password: String) {
+        // Show loading indicator
+        let loadingAlert = UIAlertController(title: nil, message: "Creating account...", preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = .medium
+        loadingIndicator.startAnimating()
+        loadingAlert.view.addSubview(loadingIndicator)
+        present(loadingAlert, animated: true, completion: nil)
+        
+        Task {
+            let success = await authState.signUp(name: name, email: email, password: password)
+            
+            DispatchQueue.main.async {
+                loadingAlert.dismiss(animated: true) {
+                    if success {
+                        self.showSuccessAlert(name: name, email: email)
+                    } else {
+                        let errorMessage = self.authState.errorMessage ?? "Unable to create account"
+                        self.showAlert(title: "Sign Up Failed", message: errorMessage)
+                    }
+                }
+            }
+        }
+    }
+
+    private func showSuccessAlert(name: String, email: String) {
+        let alert = UIAlertController(
+            title: "Account Created!",
+            message: "Welcome to Memora, \(name)!",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "Continue", style: .default) { [weak self] _ in
+            self?.navigateToHome()
+        })
+        
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func navigateToHome() {
+        // Directly navigate to home screen
+        let storyboard = UIStoryboard(name: "TabScreens", bundle: nil)
+        if let tabBar = storyboard.instantiateInitialViewController() {
+            tabBar.modalPresentationStyle = .fullScreen
+            
+            // Dismiss any presented view controllers first
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first {
+                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    window.rootViewController = tabBar
+                }, completion: nil)
+            }
+        }
     }
     
     // MARK: - Validation Helper Methods
@@ -161,17 +205,6 @@ class AuthViewController: UIViewController {
     @IBAction func signInPressed(_ sender: Any) {
         let signin = LoginViewController(nibName: "LoginViewController", bundle: nil)
         navigationController?.pushViewController(signin, animated: true)
-    }
-    private func hasUppercase(_ text: String) -> Bool {
-        return text.rangeOfCharacter(from: .uppercaseLetters) != nil
-    }
-    
-    private func hasLowercase(_ text: String) -> Bool {
-        return text.rangeOfCharacter(from: .lowercaseLetters) != nil
-    }
-    
-    private func hasNumber(_ text: String) -> Bool {
-        return text.rangeOfCharacter(from: .decimalDigits) != nil
     }
     
     // MARK: - Alert Methods
@@ -195,37 +228,6 @@ class AuthViewController: UIViewController {
                 })
             }
         }
-    }
-    
-    private func showSuccessAlert(name: String, email: String) {
-        print("Showing success alert")
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            
-            let alert = UIAlertController(
-                title: "Success!",
-                message: "Account created successfully for \(name).",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "Continue", style: .default) { _ in
-                self.proceedToNextScreen()
-            })
-            
-            if self.presentedViewController != nil {
-                self.dismiss(animated: false) {
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } else {
-                self.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    private func proceedToNextScreen() {
-        let OTP = OTPViewController(nibName: "OTPViewController", bundle: nil)
-        navigationController?.pushViewController(OTP, animated: true)
-      
     }
 }
 

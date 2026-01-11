@@ -18,6 +18,7 @@
                 <outlet property="personalInfoButton" destination="JcT-QJ-3Ku" id="dkV-II-IPI"/>
                 <outlet property="personalPrivacyContainerView" destination="Fg4-AQ-wMX" id="YT3-el-OPk"/>
                 <outlet property="privacyButton" destination="MST-uW-szZ" id="GC5-Le-mgn"/>
+                <outlet property="userNameLabel" destination="VOu-NR-Sng" id="zrG-g1-Tsd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
