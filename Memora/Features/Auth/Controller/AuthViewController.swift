@@ -12,7 +12,7 @@ class AuthViewController: UIViewController {
     
     @IBOutlet weak var textFieldContainerView: UIView!
     
-    private let authState = AuthState.shared
+    private let authState = AuthService.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()

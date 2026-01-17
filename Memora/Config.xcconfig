@@ -1,0 +1,13 @@
+//
+//  Config.xcconfig
+//  Memora
+//
+//  Created by user@33 on 14/01/26.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+
+SUPABASE_URL=https:////nvihenrjbhofcpkaehzy.supabase.co
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52aWhlbnJqYmhvZmNwa2FlaHp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgyMzU0MzUsImV4cCI6MjA4MzgxMTQzNX0.AOvJw6KbEg1D-juMhOkw_E8F7-8Jpj9w7Oru4eWwIK0
+API_BASE_URL = http://192.168.31.82:8000

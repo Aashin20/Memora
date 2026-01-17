@@ -17,7 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // Configure Firebase
         //FirebaseApp.configure()
-                
+        print(Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL")!)
+        print(Bundle.main.object(forInfoDictionaryKey: "SUPABASE_ANON_KEY")!)
+
         // Check if user is already logged in
         return true
     }
