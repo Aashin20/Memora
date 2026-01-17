@@ -3,12 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>API_BASE_URL</key>
-	<string>$(API_BASE_URL)</string>
+	<string>http://192.168.31.82:8000</string>
 	<key>SUPABASE_ANON_KEY</key>
-	<string>$(SUPABASE_ANON_KEY)</string>
+	<string>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im52aWhlbnJqYmhvZmNwa2FlaHp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgyMzU0MzUsImV4cCI6MjA4MzgxMTQzNX0.AOvJw6KbEg1D-juMhOkw_E8F7-8Jpj9w7Oru4eWwIK0</string>
 	<key>SUPABASE_URL</key>
-	<string>$(SUPABASE_URL)
-</string>
+	<string>https://nvihenrjbhofcpkaehzy.supabase.co</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

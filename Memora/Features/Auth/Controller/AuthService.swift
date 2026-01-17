@@ -2,8 +2,6 @@
 //  AuthService.swift
 //  Memora
 //
-//  Created by user@33 on 16/01/26.
-//
 
 import Foundation
 import Supabase
@@ -11,10 +9,8 @@ import Supabase
 @MainActor
 final class AuthService {
 
-    // Singleton
     static let shared = AuthService()
 
-    // 🔥 MUST be lazy to avoid early AppConfig access
     private lazy var supabaseClient: SupabaseClient = {
         SupabaseClient(
             supabaseURL: AppConfig.supabaseURL,
@@ -26,7 +22,24 @@ final class AuthService {
 
     private init() {}
 
-    // MARK: - Sign Up
+    // MARK: - LOGIN
+    func signIn(email: String, password: String) async -> Bool {
+        do {
+            // 🔥 signIn returns Session directly
+            _ = try await supabaseClient.auth.signIn(
+                email: email,
+                password: password
+            )
+
+            return true
+
+        } catch {
+            errorMessage = error.localizedDescription
+            return false
+        }
+    }
+
+    // MARK: - SIGN UP
     func signUp(
         name: String,
         email: String,
@@ -39,12 +52,14 @@ final class AuthService {
                 password: password
             )
 
-            guard response.user != nil else {
-                errorMessage = "User not returned"
-                return false
-            }
+            // 🔥 user is NON-OPTIONAL
+            let user = response.user
 
-            try await createProfile(username: name)
+            try await createProfile(
+                username: name,
+                supabaseUserId: user.id.uuidString
+            )
+
             return true
 
         } catch {
@@ -54,26 +69,20 @@ final class AuthService {
     }
 
     // MARK: - Create Profile (FastAPI)
-    private func createProfile(username: String) async throws {
-
-        let session = try await supabaseClient.auth.session
-        let accessToken = session.accessToken
+    private func createProfile(
+        username: String,
+        supabaseUserId: String
+    ) async throws {
 
         let url = AppConfig.apiBaseURL.appendingPathComponent("users/profile")
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue(
-            "Bearer \(accessToken)",
-            forHTTPHeaderField: "Authorization"
-        )
-        request.setValue(
-            "application/json",
-            forHTTPHeaderField: "Content-Type"
-        )
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         let body: [String: String] = [
-            "username": username
+            "username": username,
+            "supabase_uid": supabaseUserId
         ]
 
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
@@ -84,10 +93,7 @@ final class AuthService {
             let http = response as? HTTPURLResponse,
             http.statusCode == 201
         else {
-            throw NSError(
-                domain: "ProfileCreationFailed",
-                code: 0
-            )
+            throw NSError(domain: "ProfileCreationFailed", code: 0)
         }
     }
 }

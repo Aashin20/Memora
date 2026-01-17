@@ -11,7 +11,7 @@ class LoginViewController: UIViewController {
     // Add this for the password toggle button
     private let passwordToggleButton = UIButton(type: .custom)
     
-    private let authState = AuthState.shared
+    private let authService = AuthService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,7 +164,7 @@ class LoginViewController: UIViewController {
         present(loadingAlert, animated: true, completion: nil)
         
         Task {
-            let success = await authState.signIn(email: email, password: password)
+            let success = await authService.signIn(email: email, password: password)
             
             DispatchQueue.main.async {
                 loadingAlert.dismiss(animated: true) {
