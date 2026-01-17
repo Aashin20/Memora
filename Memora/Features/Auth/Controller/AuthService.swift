@@ -97,3 +97,22 @@ final class AuthService {
         }
     }
 }
+
+extension AuthService {
+
+    /// Returns a valid access token or throws if not logged in
+    func fetchAccessToken() async throws -> String {
+        let session = try await supabaseClient.auth.session
+        return session.accessToken
+    }
+
+    /// Safe authentication check
+    func isAuthenticated() async -> Bool {
+        do {
+            _ = try await supabaseClient.auth.session
+            return true
+        } catch {
+            return false
+        }
+    }
+}

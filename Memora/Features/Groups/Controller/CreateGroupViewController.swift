@@ -86,7 +86,7 @@ class CreateGroupViewController: UIViewController {
         Task {
             do {
                 print("🔍 CreateGroupVC: Calling SupabaseManager.createGroup...")
-                let group = try await StaticDataManager.shared.createGroup(name: groupName)
+                let group = try await GroupsService.shared.createGroup(name: groupName)
                 
                 DispatchQueue.main.async {
                     print("✅ CreateGroupVC: Group created successfully: \(group.name)")

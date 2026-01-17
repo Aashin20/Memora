@@ -1,6 +1,5 @@
 import UIKit
 
-// Add this protocol at the top
 protocol JoinGroupDelegate: AnyObject {
     func didJoinGroupSuccessfully()
 }
@@ -11,7 +10,6 @@ class JoinGroupModalViewController: UIViewController {
     @IBOutlet weak var joinButton: UIButton!
     @IBOutlet weak var cardView: UIView!
     
-    // Add delegate property
     weak var delegate: JoinGroupDelegate?
     
     override func viewDidLoad() {
@@ -67,7 +65,7 @@ class JoinGroupModalViewController: UIViewController {
     }
     
     private func joinGroup(with code: String) {
-        let loadingAlert = UIAlertController(title: nil, message: "Joining group...", preferredStyle: .alert)
+        let loadingAlert = UIAlertController(title: nil, message: "Sending join request...", preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.style = .medium
@@ -77,29 +75,46 @@ class JoinGroupModalViewController: UIViewController {
         
         Task {
             do {
-                let group = try await StaticDataManager.shared.joinGroup(code: code)
+                _ = try await GroupsService.shared.joinGroup(code: code)
                 
                 DispatchQueue.main.async {
                     loadingAlert.dismiss(animated: true) {
-                        // Notify delegate
-                        self.delegate?.didJoinGroupSuccessfully()
-                        self.showSuccessAlert(group: group)
+                        // Show success message about pending approval
+                        self.showPendingApprovalAlert(code: code)
                     }
                 }
-            } catch {
+            } catch let error as NSError {
                 DispatchQueue.main.async {
                     loadingAlert.dismiss(animated: true) {
-                        self.showAlert(title: "Error", message: "Invalid or expired group code")
+                        // Handle specific error codes
+                        var message = "Failed to join group"
+                        
+                        switch error.code {
+                        case 404:
+                            message = "Invalid group code. Please check and try again."
+                        case 400:
+                            if error.localizedDescription.contains("Already a member") {
+                                message = "You are already a member of this group"
+                            } else if error.localizedDescription.contains("Request already sent") {
+                                message = "You have already sent a join request for this group"
+                            } else {
+                                message = error.localizedDescription
+                            }
+                        default:
+                            message = error.localizedDescription
+                        }
+                        
+                        self.showAlert(title: "Error", message: message)
                     }
                 }
             }
         }
     }
     
-    private func showSuccessAlert(group: UserGroup) {
+    private func showPendingApprovalAlert(code: String) {
         let alert = UIAlertController(
-            title: "Success!",
-            message: "You have joined '\(group.name)'",
+            title: "Join Request Sent",
+            message: "Your request to join the group has been sent. You'll be notified once an admin approves your request.",
             preferredStyle: .alert
         )
         
@@ -111,7 +126,6 @@ class JoinGroupModalViewController: UIViewController {
     }
     
     private func dismissViewController() {
-        // Delegate already notified, just dismiss
         dismiss(animated: true)
     }
     
